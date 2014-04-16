@@ -1,0 +1,17 @@
+<?php
+
+stream_register_wrapper('db', 'DBStream');
+
+/**
+ * Implementation hook hook_wrapper_stream_wrappers()
+ */
+function database_stream_wrapper_stream_wrappers() {
+  return array(
+    'db' => array(
+      'name' => t('Database wrapper'),
+      'class' => 'DBStream',
+      'description' => t('Save document in database.'),
+      'type' => STREAM_WRAPPERS_LOCAL_NORMAL,
+    ),
+  );
+}

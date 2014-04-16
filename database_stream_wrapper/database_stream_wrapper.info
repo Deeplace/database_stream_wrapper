@@ -1,0 +1,7 @@
+name = Database stream wrapper
+description = Add posibility to use database stream wrapper
+core = 7.x
+version = 7.x.1
+package = DEEPLACE
+
+files[] = database_stream_wrapper.class.inc

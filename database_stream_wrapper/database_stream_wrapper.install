@@ -1,0 +1,44 @@
+<?php
+
+function database_stream_wrapper_schema() {
+
+  module_load_include('inc', 'database_stream_wrapper', 'database_stream_wrapper.class');
+
+  $schema = array();
+
+  $available_tables = variable_get('db_stream_available_tables', '');
+
+  if(empty($available_tables)) {
+    return $schema;
+  }
+
+  $tables = explode(',', $available_tables);
+
+  $default_schema = array(
+    'fields' => array(
+      'id' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+      'data' => array(
+        'type' => 'blob',
+        'not null' => FALSE
+      ),
+      'created' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'unsigned' => TRUE,
+      ),
+    ),
+    'unique keys' => array(
+      'id' => array('id')
+    ),
+  );
+
+  foreach($tables as $v) {
+    $schema[DBStream::DB_PREFIX . $v] = $default_schema;
+  }
+
+  return $schema;
+}
